@@ -1,6 +1,7 @@
 import pyodbc
 import tkinter as tk
 from tkinter import messagebox, ttk
+from PIL import Image, ImageTk
 
 # Define connection string
 connection_string = (
@@ -15,7 +16,17 @@ connection_string = (
 def main_menu():
     root = tk.Tk()
     root.title("NBA Management System Main Menu")
-    root.geometry("400x800")
+    root.geometry("600x800")
+
+    # Add a basketball image to the main menu
+    try:
+        image = Image.open("basketball.png")  # Replace with the path to your basketball image
+        image = image.resize((200, 200), Image.LANCZOS)
+        photo = ImageTk.PhotoImage(image)
+        img_label = tk.Label(root, image=photo)
+        img_label.pack(pady=20)
+    except Exception as e:
+        print(f"Error loading image: {e}")
 
     def open_player_management():
         root.destroy()
@@ -45,7 +56,7 @@ def main_menu():
         root.destroy()
         nbagame_management()
 
-    tk.Label(root, text="NBA Management System", font=("Helvetica", 16)).pack(pady=20)
+    tk.Label(root, text="NBA Management System", font=("Helvetica", 20, "bold")).pack(pady=20)
     tk.Button(root, text="Player", command=open_player_management, width=20, height=2).pack(pady=5)
     tk.Button(root, text="Coach", command=open_coach_management, width=20, height=2).pack(pady=5)
     tk.Button(root, text="Team", command=open_team_management, width=20, height=2).pack(pady=5)
