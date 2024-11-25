@@ -7,7 +7,7 @@ from PIL import Image, ImageTk
 connection_string = (
     "DRIVER={SQL Server};"
     "SERVER=nl;"  # Replace with your SQL Server instance name
-    "DATABASE=NBA Management System;"  # Replace with your database name
+    "DATABASE=NBAMANAGEMENT;"  # Replace with your database name
     "Trusted_Connection=yes;"  # Use Windows authentication
 )
 
@@ -18,13 +18,14 @@ def main_menu():
     root.title("NBA Management System Main Menu")
     root.geometry("600x800")
 
-    # Add a basketball image to the main menu
     try:
-        image = Image.open("basketball.png")  # Replace with the path to your basketball image
-        image = image.resize((200, 200), Image.LANCZOS)
-        photo = ImageTk.PhotoImage(image)
-        img_label = tk.Label(root, image=photo)
-        img_label.pack(pady=20)
+        background_image = Image.open("background2.jpg")  # Replace with the path to your basketball image
+        background_image = background_image.resize((600, 800), Image.LANCZOS)
+        background_photo = ImageTk.PhotoImage(background_image)
+
+        background_label = tk.Label(root, image=background_photo)
+        background_label.image = background_photo  # Keep a reference to avoid garbage collection
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
     except Exception as e:
         print(f"Error loading image: {e}")
 
@@ -56,15 +57,16 @@ def main_menu():
         root.destroy()
         nbagame_management()
 
-    tk.Label(root, text="NBA Management System", font=("Helvetica", 20, "bold")).pack(pady=20)
-    tk.Button(root, text="Player", command=open_player_management, width=20, height=2).pack(pady=5)
-    tk.Button(root, text="Coach", command=open_coach_management, width=20, height=2).pack(pady=5)
-    tk.Button(root, text="Team", command=open_team_management, width=20, height=2).pack(pady=5)
-    tk.Button(root, text="Season", command=open_season_management, width=20, height=2).pack(pady=5)
-    tk.Button(root, text="Sponsorship", command=open_sponsorship_management, width=20, height=2).pack(pady=5)
-    tk.Button(root, text="Assignment", command=open_assignment_management, width=20, height=2).pack(pady=5)
-    tk.Button(root, text="NBA Game", command=open_nbagame_management, width=20, height=2).pack(pady=5)
-    tk.Button(root, text="Exit", command=root.quit, width=20, height=2).pack(pady=20)
+    # Buttons on transparent overlay
+    tk.Label(root, text="NBA Management System", font=("Helvetica", 20, "bold"), fg='black', bg='white').pack(pady=20)
+    tk.Button(root, text="Player", command=open_player_management, width=20, height=2, bg='white').pack(pady=5)
+    tk.Button(root, text="Coach", command=open_coach_management, width=20, height=2, bg='white').pack(pady=5)
+    tk.Button(root, text="Team", command=open_team_management, width=20, height=2, bg='white').pack(pady=5)
+    tk.Button(root, text="Season", command=open_season_management, width=20, height=2, bg='white').pack(pady=5)
+    tk.Button(root, text="Sponsorship", command=open_sponsorship_management, width=20, height=2, bg='white').pack(pady=5)
+    tk.Button(root, text="Assignment", command=open_assignment_management, width=20, height=2, bg='white').pack(pady=5)
+    tk.Button(root, text="NBA Game", command=open_nbagame_management, width=20, height=2, bg='white').pack(pady=5)
+    tk.Button(root, text="Exit", command=root.quit, width=20, height=2, bg='white').pack(pady=20)
 
     root.mainloop()
 
